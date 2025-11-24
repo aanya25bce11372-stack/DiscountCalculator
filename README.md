@@ -1,74 +1,40 @@
-# DiscountCalculator
-Top-down design / modularization
-Overall design (top level):
+#Discount Calculator for Online Sales
 
-Step 1: Read inputs from user (order amount and discount percentage).
+def calculate_discount(amount, discount_percent):
+    """Calculate discount amount and final price."""
+    discount_amount = amount * discount_percent / 100
+    final_price = amount - discount_amount
+    return discount_amount, final_price
+def main():
+    print("=== Online Sales Discount Calculator ===")
 
-Step 2: Validate inputs.
+    #Step 1: Get user input
+    try:
+        amount = float(input("Enter order amount: "))
+        discount_percent = float(input("Enter discount percentage: "))
+    except ValueError:
+        print("Error: Please enter numeric values only.")
+        return
 
-Step 3: Calculate discount amount and final price.
+    #Step 2: Validate input
+    if amount < 0:
+        print("Error: Order amount cannot be negative.")
+        return
 
-Step 4: Display results.
+    if discount_percent < 0 or discount_percent > 100:
+        print("Error: Discount percentage must be between 0 and 100.")
+        return
 
-Modularization into functions:
+    #Step 3: Calculate discount and final price
+    discount_amount, final_price = calculate_discount(amount, discount_percent)
 
-get_inputs() – reads and converts user input.
+    #Step 4: Display results
+    print("\n--- Bill Summary ---")
+    print(f"Original amount : {amount:.2f}")
+    print(f"Discount ({discount_percent:.2f}%) : {discount_amount:.2f}")
+    print(f"Final amount to pay : {final_price:.2f}")
 
-calculate_discount(amount, discount_percent) – returns discount amount and final price.
 
-print_summary(amount, discount_percent, discount_amount, final_price) – prints results.
-This separation follows a simple top‑down design where the main() function orchestrates the steps.
-
-Algorithm development
-High-level algorithm for calculate_discount based on common discount formula:
-
-Input:
-
-amount (original order total)
-
-discount_percent (percentage discount)
-
-Compute discount amount using
-discount_amount
-=
-amount
-×
-discount_percent
-/
-100
-discount_amount=amount×discount_percent/100.​
-
-Compute final price using
-final_price
-=
-amount
-−
-discount_amount
-final_price=amount−discount_amount.​
-
-Output: discount_amount, final_price.
-
-Input validation logic:
-
-If amount < 0, show an error.
-
-If discount_percent < 0 or discount_percent > 100, show an error.
-This ensures realistic values for an online sale.​
-Testing and refinement
-Basic test cases:
-
-No discount: amount = 1000, discount = 0 → final price = 1000, discount amount = 0.
-
-Normal discount: amount = 2500, discount = 20 → discount amount = 500, final price = 2000.
-
-Edge discount: amount = 999.99, discount = 100 → discount amount = 999.99, final price = 0.
-
-Invalid inputs: negative amount, negative discount, discount > 100, or non‑numeric input (handled by error messages).
-
-Possible refinements:
-
-Support multiple items and automatic discount tiers based on order amount, as used in typical online promotions.​
-
-Add coupon codes and different discount types (flat amount vs percentage) to better match real e‑commerce sites.​
-
-Related
+#Program entry point
+if __name__ == "__main__":
+    main()
